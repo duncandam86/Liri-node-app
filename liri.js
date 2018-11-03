@@ -1,9 +1,10 @@
+require("dotenv").config();
+
 // Load packages
 let NodeSpotify = require("node-spotify-api");
 let request = require("request");
 let moment = require("moment");
 let fs = require("fs");
-let dotenv = require("dotenv").config();
 let keys = require("./keys.js");
 
 //store arguments
@@ -75,20 +76,27 @@ if (command === "concert-this") {
     }
 }
 
-
-//NOT WORKING YET
 //Create function to search for spotify song
 function searchSpotifySong(song) {
-    var spotify = new Spotify(keys.spotify)
+    var spotify = new NodeSpotify(keys.spotify)
 
-    console.log(spotify);
+    // console.log(spotify);
 
     spotify.search({ type: 'track', query: song }, function (err, data) {
-        console.log(data)
+        //console.log(data);
+        //console.log(data.tracks);
+        //console.log(data.tracks.items[0]);
+        //console.log(data.tracks.items[0].album);
+        //console.log(data.tracks.items[0].album.artists);
         if (err) {
             return console.log('Error occurred: ' + err);
         }
-
+        else {
+            console.log("Artist: " + data.tracks.items[0].artists[0].name);
+            console.log("The song's name: " + data.tracks.items[0].name);
+            console.log("Preview link of the song: " + data.tracks.items[0].preview_url);
+            console.log("Album: " + data.tracks.items[0].album.name);
+        }
     });
 }
 
@@ -97,11 +105,15 @@ if (command === "spotify-this-song") {
         searchSpotifySong(searchName);
     }
     else {
-        searchSpotifySong("you bring me joy")
+        searchSpotifySong("The Sign by Ace of Base")
     }
 }
 
-//NOT SURE WHAT IS GOING ON HERE
+if (command === " ") {
+    searchSpotifySong("The Sign")
+}
+
+
 //create function for doWhatItSay 
 function doWhatitSay() {
     fs.readFile("random.txt", "utf8", function (error, data) {
@@ -109,12 +121,12 @@ function doWhatitSay() {
             return console.log(error);
         }
         //console.log(data);
-        let random = data.split(",")
+        var random = data.split(",")
         // console.log(random);
         // console.log(random[0]);
         // console.log(random[1]);
 
-        bandInTown(random[1])
+        searchSpotifySong(random[1])
     });
 }
 if (command === "do-what-it-says") {
