@@ -23,7 +23,7 @@ function omdbMovie(movie) {
     request(omdbURL, function (error, response, body) {
         // console.log(response)
         if (!error && response.statusCode == 200) {
-            var body = JSON.parse(body);
+            let body = JSON.parse(body);
             //console.log(body);
             console.log("Title: " + body.Title);
             console.log("Release Year: " + body.Year);
@@ -40,6 +40,7 @@ function omdbMovie(movie) {
         }
     })
 }
+//setting up command for movie-this
 if (command === "movie-this") {
     if (searchName) {
         omdbMovie(searchName);
@@ -60,7 +61,7 @@ function bandInTown(artist) {
     request(bandInTownURL, function (error, response, body) {
         //console.log (response)
         if (!error && response.statusCode == 200) {
-            var body = JSON.parse(body);
+            let body = JSON.parse(body);
             //console.log (body)
             for (let i = 0; i < body.length; i++) {
                 console.log("Name of Venue: " + body[i].venue.name);
@@ -70,6 +71,7 @@ function bandInTown(artist) {
         }
     })
 }
+//setting up command for concert-this
 if (command === "concert-this") {
     if (searchName) {
         bandInTown(searchName);
@@ -99,7 +101,7 @@ function searchSpotifySong(song) {
         }
     });
 }
-
+//setting up command for spotify-this-song
 if (command === "spotify-this-song") {
     if (searchName) {
         searchSpotifySong(searchName);
@@ -108,9 +110,8 @@ if (command === "spotify-this-song") {
         searchSpotifySong("The Sign by Ace of Base")
     }
 }
-
 if (command === " ") {
-    searchSpotifySong("The Sign")
+    searchSpotifySong("The Sign by Ace of Base")
 }
 
 
