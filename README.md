@@ -32,7 +32,7 @@
 
 * In addition to logging the data to your terminal/bash window, the data are also added to a .txt file called `log.txt`.
 
-### Technologies
+## Technologies
 * Javascripts
 * Node.js
 * Packages:
