@@ -12,7 +12,7 @@ let command = process.argv[2];
 let nodeArgs = process.argv;
 
 
-//string movie, song or bandname
+//string movie, song or artist
 let searchName = nodeArgs.slice(3).join("+");
 // console.log(searchName);
 
@@ -23,8 +23,9 @@ function omdbMovie(movie) {
     request(omdbURL, function (error, response, body) {
         // console.log(response)
         if (!error && response.statusCode == 200) {
-            let body = JSON.parse(body);
+            var body = JSON.parse(body);
             //console.log(body);
+            console.log("----------------------------");
             console.log("Title: " + body.Title);
             console.log("Release Year: " + body.Year);
             console.log("IMdB Rating: " + body.imdbRating);
@@ -33,6 +34,49 @@ function omdbMovie(movie) {
             console.log("Language: " + body.Language);
             console.log("Plot: " + body.Plot);
             console.log("Actors: " + body.Actors);
+            console.log("----------------------------");
+
+            //added into log.txt
+            fs.appendFile("log.txt", "Title: " + body.Title, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            fs.appendFile("log.txt", ". Release Year: " + body.Year, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            fs.appendFile("log.txt", ". IMdB Rating: " + body.imdbRating, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            fs.appendFile("log.txt", ". Rotten Tomatoes Rating: " + body.tomatoRating, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            fs.appendFile("log.txt", ". Country: " + body.Country, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            fs.appendFile("log.txt", ". Language: " + body.Language, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            fs.appendFile("log.txt", ". Plot: " + body.Plot, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            fs.appendFile("log.txt", ". Actors: " + body.Actors, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
         }
 
         else {
@@ -61,12 +105,30 @@ function bandInTown(artist) {
     request(bandInTownURL, function (error, response, body) {
         //console.log (response)
         if (!error && response.statusCode == 200) {
-            let body = JSON.parse(body);
+            var body = JSON.parse(body);
             //console.log (body)
             for (let i = 0; i < body.length; i++) {
+                console.log("----------------------------");
                 console.log("Name of Venue: " + body[i].venue.name);
                 console.log("Venue Location: " + body[i].venue.city + ", " + body[i].venue.region + ", " + body[i].venue.country);
                 console.log("Date of the Event: " + moment(body[i].datetime).format("dddd, MMMM Do YYYY, h:mm:ss a"));
+                console.log("----------------------------");
+
+                fs.appendFile("log.txt", `Name of Venue: ${body[i].venue.name}`, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+                fs.appendFile("log.txt", `. Venue Location: ${body[i].venue.city}, ${body[i].venue.region}, ${body[i].venue.country}`, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+                fs.appendFile("log.txt", `. Date of the Event: ${moment(body[i].datetime).format("dddd, MMMM Do YYYY, h:mm:ss a")}`, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
             }
         }
     })
@@ -80,7 +142,7 @@ if (command === "concert-this") {
 
 //Create function to search for spotify song
 function searchSpotifySong(song) {
-    var spotify = new NodeSpotify(keys.spotify)
+    const spotify = new NodeSpotify(keys.spotify)
 
     // console.log(spotify);
 
@@ -94,10 +156,33 @@ function searchSpotifySong(song) {
             return console.log('Error occurred: ' + err);
         }
         else {
+            console.log("----------------------------");
             console.log("Artist: " + data.tracks.items[0].artists[0].name);
             console.log("The song's name: " + data.tracks.items[0].name);
             console.log("Preview link of the song: " + data.tracks.items[0].preview_url);
             console.log("Album: " + data.tracks.items[0].album.name);
+            console.log("----------------------------");
+            //Append these data into a log.txt file
+            fs.appendFile("log.txt", `Artist:  ${data.tracks.items[0].artists[0].name}`, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            fs.appendFile("log.txt", `. The song's name:  ${data.tracks.items[0].name}`, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            fs.appendFile("log.txt", `. Preview link of the song:  ${data.tracks.items[0].preview_url}`, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            fs.appendFile("log.txt", `. Album:  ${data.tracks.items[0].album.name}`, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
         }
     });
 }
