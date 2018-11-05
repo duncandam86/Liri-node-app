@@ -10,7 +10,7 @@
 * Using the below command, LIRI will search Spotify for songs, Bands in Town for concerts, and OMDB for movies.
     1. `node liri.js concert-this <artist/band name here>`
         * This will search the Bands in Town Artist Events API for an artist and render the information about each event to the terminal.
-            * Example: [node liri.js concert-this lady gaga] https://github.com/duncandam86/Liri-node-app/blob/master/assests/images/Concert-this%20lady%20gaga.png
+            * Example: https://github.com/duncandam86/Liri-node-app/blob/master/assests/images/Concert-this%20lady%20gaga.png
          
 
     2. `node liri.js spotify-this-song '<song name here>'`
