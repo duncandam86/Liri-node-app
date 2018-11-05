@@ -89,7 +89,7 @@ if (command === "movie-this") {
     if (searchName) {
         omdbMovie(searchName);
     }
-    if (command === " ") {
+    if (searchName === "") {
         console.log("----------------------------");
         console.log("If you haven't watched Mr. Nobody, then you should: <http://www.imdb.com/title/tt0485947/>");
         console.log("It's on Netflix");
@@ -191,12 +191,9 @@ if (command === "spotify-this-song") {
     if (searchName) {
         searchSpotifySong(searchName);
     }
-    else {
+    if (searchName === "") {
         searchSpotifySong("The Sign by Ace of Base")
     }
-}
-if (command === " ") {
-    searchSpotifySong("The Sign by Ace of Base")
 }
 
 
